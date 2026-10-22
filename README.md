@@ -12,6 +12,32 @@ enteramente ficticio.
 
 ---
 
+## Origen
+
+Parte de lo que ves acá viene de un sistema que se usó en producción en
+canteras reales, donde reemplazó planillas de Excel y registros en papel:
+
+- **Inventario de explosivos**, que antes no existía.
+- **Gestión de combustible**, con seguimiento diario del consumo y de su destino de uso.
+- **Embolsado**, con control al momento en lugar de un registro casi inexistente.
+- **Ingreso de camiones y cantidad transportada**, con trazabilidad completa
+  y la información lista para la documentación que se entrega al Estado.
+
+Cada cantera tenía una producción distinta, de ahí que las líneas de producción
+se definan en datos y no en código.
+
+Lo demás (seguridad, control de leyes, reservas, confiabilidad de activos,
+reconciliación mina-planta) se agregó después, tomando prácticas estándar de
+la industria, y **no formó parte del sistema en producción**.
+
+## Cómo se construyó
+
+Desarrollado con asistencia de IA. Los requisitos, la estructura de módulos y
+las decisiones de diseño salen del trabajo con la operación real; el código se
+escribió en colaboración con un asistente de IA.
+
+---
+
 ## Qué es
 
 Nació de generalizar un sistema real de cantera y molienda de carbonatos, y se

@@ -323,6 +323,65 @@
 
     <div class="shot">
       <div class="shot-head">
+        <span class="tag">Mina</span>
+        <h3>La voladura descuenta el explosivo del polvorín, por lote</h3>
+        <p>
+          Cada voladura guarda el diseño de la malla, el resultado y el control
+          (fragmentación, vibración, onda aérea) y el explosivo que consumió. Al
+          guardar, el polvorín baja en el libro mayor: por el lote que se indica
+          o, si no, por el más antiguo. Un saldo negativo de explosivo se rechaza,
+          porque es una no conformidad y no un ajuste contable. De ahí salen el
+          factor de carga, el costo por tonelada y las toneladas por metro
+          perforado. Una voladura se corrige anulándola, no editándola.
+        </p>
+      </div>
+      <div class="grid cols-2">
+        <div>
+          <a class="frame" href="img/20-voladuras.png"><img src="img/20-voladuras.png" alt="Listado de voladuras con explosivo, toneladas, factor de carga, fragmentación y vibración" loading="lazy"></a>
+          <p class="caption">Voladuras de la faena con su factor de carga.</p>
+        </div>
+        <div>
+          <a class="frame" href="img/21-voladura-detalle.png"><img src="img/21-voladura-detalle.png" alt="Ficha de una voladura con malla, resultado, costos y explosivos consumidos por lote" loading="lazy"></a>
+          <p class="caption">Ficha: malla, resultado, plano director, costo del barrenista y consumos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="shot">
+      <div class="shot-head">
+        <span class="tag">Polvorín</span>
+        <h3>Inventario de explosivos con sus cuatro documentos</h3>
+        <p>
+          Saldo por polvorín, material y lote. Compra, traslado, ajuste y saldo
+          inicial son el mismo documento de inventario con otro tipo, y todos
+          asientan en el mismo libro. Anular un ingreso cuyo lote ya se usó en
+          parte se bloquea: se corrige con un ajuste.
+        </p>
+      </div>
+      <div class="grid cols-2">
+        <div>
+          <a class="frame" href="img/23-polvorin.png"><img src="img/23-polvorin.png" alt="Stock de explosivos por polvorín, material y lote" loading="lazy"></a>
+          <p class="caption">Saldo por material y lote.</p>
+        </div>
+        <div>
+          <a class="frame" href="img/24-compra-explosivos.png"><img src="img/24-compra-explosivos.png" alt="Formulario de compra de explosivos con proveedor, lote y precio" loading="lazy"></a>
+          <p class="caption">Compra de explosivos: factura, proveedor, lote y precio.</p>
+        </div>
+      </div>
+      <div class="grid cols-2" style="margin-top:20px">
+        <div>
+          <a class="frame" href="img/22-voladura-nueva.png"><img src="img/22-voladura-nueva.png" alt="Formulario de nueva voladura con las líneas de explosivos sugeridas" loading="lazy"></a>
+          <p class="caption">Alta de voladura: las líneas vienen sugeridas con el promedio de las últimas diez.</p>
+        </div>
+        <div>
+          <a class="frame" href="img/25-voladura-celular.png" style="max-width:360px;margin:0 auto"><img src="img/25-voladura-celular.png" alt="La ficha de una voladura vista en un teléfono" loading="lazy"></a>
+          <p class="caption">La misma ficha en un teléfono: se usa a pie de cantera.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="shot">
+      <div class="shot-head">
         <span class="tag">Producción</span>
         <h3>El parte diario es lo único que postea al libro</h3>
         <p>
@@ -538,6 +597,7 @@
           <li>Los doce motores, encadenados sobre los mismos datos.</li>
           <li>Alta de compañía por perfil de industria, probada con una minera de cobre sin tocar código.</li>
           <li>UI de tablero, stock, movimientos, conteo, cierre, producción, plan y configuración.</li>
+          <li>UI de voladuras y polvorín (compra, traslado, ajuste, saldo inicial), con vistas pensadas también para el celular.</li>
           <li>Trazabilidad por lote de punta a punta, con alcance de retiro.</li>
         </ul>
       </div>
