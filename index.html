@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MineOps — gestión de operaciones mineras</title>
+<meta name="description" content="Recorrido visual por MineOps: plataforma multi-empresa de gestión de operaciones mineras. Mina, planta, inventario con trazabilidad por lote, mantenimiento, seguridad y planificación.">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f6f7f9;
+    --bg-card: #ffffff;
+    --ink: #16181d;
+    --ink-soft: #5a616e;
+    --ink-faint: #878e9c;
+    --line: #e3e6ea;
+    --accent: #b4531f;
+    --accent-soft: #fdf1e9;
+    --shadow: 0 1px 2px rgba(16,18,24,.06), 0 8px 24px rgba(16,18,24,.06);
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115;
+      --bg-soft: #14171d;
+      --bg-card: #171b22;
+      --ink: #e9ecf1;
+      --ink-soft: #a3abb9;
+      --ink-faint: #7c8492;
+      --line: #262b34;
+      --accent: #e8843f;
+      --accent-soft: #241a12;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  a { color: var(--accent); }
+
+  /* ---------- hero ---------- */
+  header.hero {
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--bg-soft), var(--bg));
+  }
+  .hero-inner { padding: 72px 0 56px; }
+  .eyebrow {
+    font: 600 12px/1 var(--mono);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 18px;
+  }
+  h1 {
+    margin: 0 0 18px;
+    font-size: clamp(38px, 6vw, 60px);
+    line-height: 1.04;
+    letter-spacing: -.025em;
+    font-weight: 700;
+  }
+  .lede {
+    margin: 0;
+    max-width: 62ch;
+    font-size: clamp(17px, 2vw, 20px);
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 30px 0 0; padding: 0; list-style: none; }
+  .chips li {
+    font: 500 13px/1 var(--mono);
+    padding: 7px 11px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-soft);
+    background: var(--bg-card);
+  }
+  .notice {
+    margin: 34px 0 0;
+    padding: 14px 18px;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 8px 8px 0;
+    font-size: 15px;
+    color: var(--ink);
+    max-width: 74ch;
+  }
+
+  /* ---------- secciones ---------- */
+  section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+  section.tint { background: var(--bg-soft); }
+  h2 {
+    margin: 0 0 10px;
+    font-size: clamp(25px, 3.4vw, 33px);
+    letter-spacing: -.02em;
+    line-height: 1.2;
+  }
+  h2 + .sub {
+    margin: 0 0 38px;
+    color: var(--ink-soft);
+    max-width: 68ch;
+    font-size: 17px;
+  }
+  h3 { margin: 0 0 8px; font-size: 19px; letter-spacing: -.01em; }
+  p { margin: 0 0 16px; }
+  p:last-child { margin-bottom: 0; }
+
+  .grid { display: grid; gap: 20px; }
+  @media (min-width: 720px) { .grid.cols-2 { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 980px) { .grid.cols-4 { grid-template-columns: repeat(4, 1fr); } }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px;
+  }
+  .card .num {
+    font: 600 12px/1 var(--mono);
+    color: var(--accent);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .card p { color: var(--ink-soft); font-size: 15px; }
+
+  /* ---------- recorrido ---------- */
+  .shot { margin: 0 0 64px; }
+  .shot:last-child { margin-bottom: 0; }
+  .shot-head { max-width: 74ch; margin-bottom: 20px; }
+  .shot-head .tag {
+    font: 600 12px/1 var(--mono);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: block;
+    margin-bottom: 10px;
+  }
+  .shot-head p { color: var(--ink-soft); }
+  .frame {
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    background: var(--bg-card);
+    line-height: 0;
+  }
+  .frame img { width: 100%; height: auto; display: block; }
+  .caption {
+    margin: 10px 2px 0;
+    font-size: 14px;
+    color: var(--ink-faint);
+    line-height: 1.5;
+  }
+
+  /* ---------- tablas ---------- */
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-card); }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 15px; }
+  th, td { text-align: left; padding: 12px 18px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-faint); font-weight: 600; }
+  tbody tr:last-child td { border-bottom: 0; }
+  td code, .mono { font: 500 13.5px/1.5 var(--mono); color: var(--ink); }
+
+  /* ---------- métricas ---------- */
+  .stats { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+  .stat { border-left: 2px solid var(--accent); padding-left: 16px; }
+  .stat b { display: block; font-size: 27px; letter-spacing: -.02em; line-height: 1.2; }
+  .stat span { font-size: 14px; color: var(--ink-soft); }
+
+  ul.plain { margin: 0; padding-left: 20px; color: var(--ink-soft); }
+  ul.plain li { margin-bottom: 8px; }
+
+  footer { padding: 52px 0 72px; color: var(--ink-faint); font-size: 15px; }
+  footer p { max-width: 70ch; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <p class="eyebrow">Vitrina · demo en imágenes</p>
+    <h1>MineOps</h1>
+    <p class="lede">
+      Plataforma de gestión de operaciones mineras: mina, planta, inventario,
+      mantenimiento, seguridad y planificación sobre una sola base de datos
+      multi-empresa. Nació de generalizar un sistema real de cantera y molienda,
+      y se completó con las prácticas estándar de la industria que ese sistema
+      no cubría.
+    </p>
+    <ul class="chips">
+      <li>Python · Flask · SQLAlchemy</li>
+      <li>SQLite / PostgreSQL</li>
+      <li>Multi-empresa y multi-faena</li>
+      <li>12 módulos de dominio</li>
+      <li>12 motores de cálculo</li>
+    </ul>
+    <p class="notice">
+      <b>El código fuente es privado.</b> Esta página es un recorrido por el
+      sistema funcionando: todas las capturas son de la aplicación real, con un
+      dataset de demostración enteramente ficticio.
+    </p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Qué resuelve</h2>
+    <p class="sub">
+      Una operación minera mide lo mismo en cuatro planillas distintas y ninguna
+      cierra con la otra. MineOps parte de una regla: cada tonelada que se mueve
+      es un asiento, y todo lo demás se calcula sumando asientos.
+    </p>
+
+    <div class="grid cols-4">
+      <div class="card">
+        <span class="num">01</span>
+        <h3>El stock es un libro mayor</h3>
+        <p>
+          Una sola tabla de movimientos con signo y trazabilidad al documento de
+          origen. No se edita ni se borra un asiento: se contra-asienta. Vale
+          igual para gasoil, caliza, explosivos y repuestos.
+        </p>
+      </div>
+      <div class="card">
+        <span class="num">02</span>
+        <h3>Las líneas se definen en datos</h3>
+        <p>
+          Cada línea de producción declara sus campos y cada parte guarda valores
+          contra esas definiciones. Agregar un producto o una medición es
+          configuración, no una migración.
+        </p>
+      </div>
+      <div class="card">
+        <span class="num">03</span>
+        <h3>La planificación baja por recetas</h3>
+        <p>
+          Recetas recursivas convierten una meta de producto terminado en
+          requerimiento de mina, con rendimiento del proceso y merma del
+          componente como correcciones separadas.
+        </p>
+      </div>
+      <div class="card">
+        <span class="num">04</span>
+        <h3>Multi-empresa desde la primera tabla</h3>
+        <p>
+          Compañía y faena en cada fila operativa. No hay forma de escribir un
+          dato sin dueño, y dar de alta una minera nueva no toca una línea de
+          código.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tint">
+  <div class="wrap">
+    <h2>Recorrido</h2>
+    <p class="sub">
+      Capturas del sistema corriendo sobre <b>Carbonatos del Sur S.A.</b>, una
+      operación ficticia de cantera, molienda, cal y envasado con seis meses de
+      historia y unos 40.000 registros.
+    </p>
+
+    <div class="shot">
+      <div class="shot-head">
+        <span class="tag">Tablero</span>
+        <h3>Los indicadores salen de los mismos asientos que la operación</h3>
+        <p>
+          Producción, ritmo, recuperación de planta, factor de carga, TRIFR,
+          combustible por tonelada. Cada compañía elige qué indicadores ve y con
+          qué meta. Abajo, el balance de masa: si la diferencia no explicada
+          pasa del 3–5 %, hay error de pesaje o pérdida real, no ruido.
+        </p>
+      </div>
+      <a class="frame" href="img/02-tablero.png"><img src="img/02-tablero.png" alt="Tablero de KPIs con balance de masa, seguridad del período y disponibilidad por equipo" loading="lazy"></a>
+    </div>
+
+    <div class="shot">
+      <div class="shot-head">
+        <span class="tag">Trazabilidad</span>
+        <h3>De una bolsa de 1 kg al banco del que salió la piedra</h3>
+        <p>
+          Cada lote conoce sus padres y sus hijos. La raíz de la cadena es el
+          número de voladura, así que desde un lote de producto se llega a la
+          geometría del disparo y a la ley de las muestras de barreno. El
+          recuadro rojo es el pago de todo eso: el alcance real de un retiro de
+          mercado, con los clientes a notificar.
+        </p>
+      </div>
+      <a class="frame" href="img/10-lote-detalle.png"><img src="img/10-lote-detalle.png" alt="Detalle de un lote con su origen en dos voladuras, leyes de laboratorio, descendientes y alcance de retiro" loading="lazy"></a>
+      <p class="caption">18 lotes alcanzados · 53 despachos · 767 t en la calle · 8 clientes a notificar.</p>
+    </div>
+
+    <div class="shot">
+      <div class="shot-head">
+        <span class="tag">Inventario</span>
+        <h3>Saldos por material y ubicación, y el libro que los explica</h3>
+        <p>
+          El saldo nunca se guarda: se calcula sumando movimientos. Cada línea
+          del libro apunta al documento que la generó, así que cualquier número
+          del tablero se puede abrir hasta el parte de producción o el despacho
+          que lo produjo.
+        </p>
+      </div>
+      <div class="grid cols-2">
+        <div>
+          <a class="frame" href="img/06-stock.png"><img src="img/06-stock.png" alt="Saldos de stock por material y ubicación" loading="lazy"></a>
+          <p class="caption">Saldos por familia de material y ubicación.</p>
+        </div>
+        <div>
+          <a class="frame" href="img/07-movimientos.png"><img src="img/07-movimientos.png" alt="Libro mayor de movimientos de stock con documento de origen" loading="lazy"></a>
+          <p class="caption">El libro mayor, con signo y documento de origen.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="shot">
+      <div class="shot-head">
+        <span class="tag">Mina</span>
+        <h3>La voladura descuenta el explosivo del polvorín, por lote</h3>
+        <p>
+          Cada voladura guarda el diseño de la malla, el resultado y el control
+          (fragmentación, vibración, onda aérea) y el explosivo que consumió. Al
+          guardar, el polvorín baja en el libro mayor: por el lote que se indica
+          o, si no, por el más antiguo. Un saldo negativo de explosivo se rechaza,
+          porque es una no conformidad y no un ajuste contable. De ahí salen el
+          factor de carga, el costo por tonelada y las toneladas por metro
+          perforado. Una voladura se corrige anulándola, no editándola.
+        </p>
+      </div>
+      <div class="grid cols-2">
+        <div>
+          <a class="frame" href="img/20-voladuras.png"><img src="img/20-voladuras.png" alt="Listado de voladuras con explosivo, toneladas, factor de carga, fragmentación y vibración" loading="lazy"></a>
+          <p class="caption">Voladuras de la faena con su factor de carga.</p>
+        </div>
+        <div>
+          <a class="frame" href="img/21-voladura-detalle.png"><img src="img/21-voladura-detalle.png" alt="Ficha de una voladura con malla, resultado, costos y explosivos consumidos por lote" loading="lazy"></a>
+          <p class="caption">Ficha: malla, resultado, plano director, costo del barrenista y consumos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="shot">
+      <div class="shot-head">
+        <span class="tag">Polvorín</span>
+        <h3>Inventario de explosivos con sus cuatro documentos</h3>
+        <p>
+          Saldo por polvorín, material y lote. Compra, traslado, ajuste y saldo
+          inicial son el mismo documento de inventario con otro tipo, y todos
+          asientan en el mismo libro. Anular un ingreso cuyo lote ya se usó en
+          parte se bloquea: se corrige con un ajuste.
+        </p>
+      </div>
+      <div class="grid cols-2">
+        <div>
+          <a class="frame" href="img/23-polvorin.png"><img src="img/23-polvorin.png" alt="Stock de explosivos por polvorín, material y lote" loading="lazy"></a>
+          <p class="caption">Saldo por material y lote.</p>
+        </div>
+        <div>
+          <a class="frame" href="img/24-compra-explosivos.png"><img src="img/24-compra-explosivos.png" alt="Formulario de compra de explosivos con proveedor, lote y precio" loading="lazy"></a>
+          <p class="caption">Compra de explosivos: factura, proveedor, lote y precio.</p>
+        </div>
+      </div>
+      <div class="grid cols-2" style="margin-top:20px">
+        <div>
+          <a class="frame" href="img/22-voladura-nueva.png"><img src="img/22-voladura-nueva.png" alt="Formulario de nueva voladura con las líneas de explosivos sugeridas" loading="lazy"></a>
+          <p class="caption">Alta de voladura: las líneas vienen sugeridas con el promedio de las últimas diez.</p>
+        </div>
+        <div>
+          <a class="frame" href="img/25-voladura-celular.png" style="max-width:360px;margin:0 auto"><img src="img/25-voladura-celular.png" alt="La ficha de una voladura vista en un teléfono" loading="lazy"></a>
+          <p class="caption">La misma ficha en un teléfono: se usa a pie de cantera.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="shot">
+      <div class="shot-head">
+        <span class="tag">Producción</span>
+        <h3>El parte diario es lo único que postea al libro</h3>
+        <p>
+          El formulario se arma solo con los campos que declaró la línea. Al
+          postear, el sistema consume las entradas por lote en FIFO y enlaza el
+          lote de salida con cada lote que lo alimentó. Un parte se anula
+          contra-asentando, nunca borrando.
+        </p>
+      </div>
+      <div class="grid cols-2">
+        <div>
+          <a class="frame" href="img/05-parte-nuevo.png"><img src="img/05-parte-nuevo.png" alt="Formulario dinámico de parte de producción" loading="lazy"></a>
+          <p class="caption">Formulario generado desde la configuración de la línea.</p>
+        </div>
+        <div>
+          <a class="frame" href="img/04-parte-detalle.png"><img src="img/04-parte-detalle.png" alt="Detalle de un parte de producción posteado" loading="lazy"></a>
+          <p class="caption">Parte posteado, con sus asientos y sus lotes.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="shot">
+      <div class="shot-head">
+        <span class="tag">Envasado</span>
+        <h3>Fraccionado y rotura de envases</h3>
+        <p>
+          Se envasa en bolsones de 1 t y después se re-envasa en bolsas chicas.
+          Ahí se rompe la bolsa y se pierden dos cosas a la vez: producto y
+          envase. MineOps las registra como un solo hecho y guarda la etapa en
+          que ocurrió, que es lo único que después permite corregir la causa.
+          El posteo falla si lo que entra no es igual a lo que sale más lo
+          recuperado más lo perdido.
+        </p>
+      </div>
+      <div class="grid cols-2">
+        <div>
+          <a class="frame" href="img/11-roturas.png"><img src="img/11-roturas.png" alt="Registro de roturas de envase por etapa, con producto y envase perdidos" loading="lazy"></a>
+          <p class="caption">Roturas por etapa: producto perdido, envase perdido y costo.</p>
+        </div>
+        <div>
+          <a class="frame" href="img/08-presentaciones.png"><img src="img/08-presentaciones.png" alt="Stock por presentación: granel, bolsón de 1 t y bolsa de 1 kg" loading="lazy"></a>
+          <p class="caption">El mismo material, contado por presentación.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="shot">
+      <div class="shot-head">
+        <span class="tag">Planificación</span>
+        <h3>De la meta comercial al requerimiento de mina</h3>
+        <p>
+          La explosión de recetas recorre la cadena hacia atrás, nivel por
+          nivel: para producir tantas toneladas de carbonato fino hacen falta
+          tantas de caliza molida, y para eso tantas de ROM. Rendimiento y merma
+          se aplican por separado porque son problemas distintos.
+        </p>
+      </div>
+      <a class="frame" href="img/14-plan.png"><img src="img/14-plan.png" alt="Explosión del plan mensual en requerimiento de material aguas arriba" loading="lazy"></a>
+    </div>
+
+    <div class="shot">
+      <div class="shot-head">
+        <span class="tag">Control</span>
+        <h3>Conteo físico y cierre de período</h3>
+        <p>
+          El conteo compara el libro contra lo contado y deja el ajuste como un
+          asiento más, con su diferencia a la vista. El cierre congela el
+          período en un snapshot: después de cerrado, ningún movimiento se cuela
+          con fecha vieja.
+        </p>
+      </div>
+      <div class="grid cols-2">
+        <div>
+          <a class="frame" href="img/12-conteo.png"><img src="img/12-conteo.png" alt="Conteo físico de inventario contra el libro" loading="lazy"></a>
+          <p class="caption">Conteo físico: libro contra contado.</p>
+        </div>
+        <div>
+          <a class="frame" href="img/13-cierre.png"><img src="img/13-cierre.png" alt="Cierre de período de inventario" loading="lazy"></a>
+          <p class="caption">Cierre de período con snapshot de saldos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="shot">
+      <div class="shot-head">
+        <span class="tag">Configuración</span>
+        <h3>Una minera nueva se da de alta sin tocar código</h3>
+        <p>
+          El asistente pide compañía, faena y perfil de industria — áridos,
+          carbonatos, rajo abierto, subterránea o industrial — y precarga
+          materiales, ubicaciones, clases de equipo, causas de parada, turnos,
+          centros de costo, presentaciones, KPIs con metas y el documento legal
+          de transporte del país. Todo editable después.
+        </p>
+      </div>
+      <div class="grid cols-2">
+        <div>
+          <a class="frame" href="img/19-nueva-compania.png"><img src="img/19-nueva-compania.png" alt="Asistente de alta de una compañía nueva por perfil de industria" loading="lazy"></a>
+          <p class="caption">Alta de compañía por perfil de industria.</p>
+        </div>
+        <div>
+          <a class="frame" href="img/17-campos-linea.png"><img src="img/17-campos-linea.png" alt="Configuración de los campos de una línea de producción" loading="lazy"></a>
+          <p class="caption">Los campos de una línea: qué entra, qué sale, qué se mide.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="shot">
+      <div class="shot-head">
+        <span class="tag">Indicadores</span>
+        <h3>Qué se mide lo decide cada compañía</h3>
+        <p>
+          Los KPIs no están cableados: son filas con su fórmula, su unidad, su
+          meta y el sentido en que se leen. Dos compañías del mismo grupo pueden
+          mirar tableros distintos sobre el mismo modelo.
+        </p>
+      </div>
+      <a class="frame" href="img/18-kpis.png"><img src="img/18-kpis.png" alt="Configuración de KPIs con metas por compañía" loading="lazy"></a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Lo que hay debajo</h2>
+    <p class="sub">
+      Doce módulos de dominio y doce motores de cálculo. Los motores son la parte
+      que no se ve en una captura y es la que sostiene todo lo demás.
+    </p>
+
+    <div class="grid cols-2">
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Módulo</th><th>Qué cubre</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">core</td><td>Compañía, faena, usuarios, roles, unidades, presentaciones, monedas, auditoría</td></tr>
+            <tr><td class="mono">catalog</td><td>Materiales, ubicaciones jerárquicas, equipos, terceros, personas, turnos, jornales</td></tr>
+            <tr><td class="mono">geology</td><td>Yacimientos, recursos y reservas (JORC / NI 43-101), muestras, ensayos, especificaciones</td></tr>
+            <tr><td class="mono">mining</td><td>Mallas de perforación, voladuras, ciclos de carguío y acarreo, topografía</td></tr>
+            <tr><td class="mono">processing</td><td>Plantas, líneas configurables, partes de producción, paradas tipificadas, recetas</td></tr>
+            <tr><td class="mono">inventory</td><td>Libro mayor único, documentos, cierre de período, combustible con horómetro</td></tr>
+            <tr><td class="mono">packaging</td><td>Fraccionado entre presentaciones, envases retornables, rotura con doble pérdida</td></tr>
+            <tr><td class="mono">lot</td><td>Lotes con estado y vencimiento, genealogía padre-hijo, alcance de retiro</td></tr>
+            <tr><td class="mono">maintenance</td><td>Lecturas de contador, planes preventivos, órdenes de trabajo, eventos de falla</td></tr>
+            <tr><td class="mono">hse</td><td>Incidentes, acciones correctivas, inspecciones, capacitaciones, monitoreo, permisos</td></tr>
+            <tr><td class="mono">sales</td><td>Listas de precio, pedidos, despachos con pesaje, documento legal por país</td></tr>
+            <tr><td class="mono">planning</td><td>Planes y metas, reconciliación mina-planta, registro de KPIs</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Motor</th><th>Responsabilidad</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">units</td><td>Conversión por dimensión, presentaciones, masa↔volumen por densidad, leyes</td></tr>
+            <tr><td class="mono">ledger</td><td>Único punto que escribe stock: postear, contra-asentar, saldos, costo, cierre</td></tr>
+            <tr><td class="mono">recipes</td><td>Explosión recursiva de plan a requerimiento de mina</td></tr>
+            <tr><td class="mono">repack</td><td>Fraccionado con balance forzado, rotura por etapa, envase retornable</td></tr>
+            <tr><td class="mono">lots</td><td>Asignación FIFO por lote, genealogía, alcance de retiro, lotes por vencer</td></tr>
+            <tr><td class="mono">production</td><td>Posteo de corridas: consumo FIFO y enlace del lote de salida a los de entrada</td></tr>
+            <tr><td class="mono">blasting</td><td>Volumen, tonelaje, factor de carga, burden y taco sugeridos, vibración estimada</td></tr>
+            <tr><td class="mono">fleet</td><td>Tiempos de ciclo, productividad, uso de capacidad, match factor pala-camión</td></tr>
+            <tr><td class="mono">oee</td><td>Disponibilidad, utilización, rendimiento, OEE, MTBF / MTTR</td></tr>
+            <tr><td class="mono">safety</td><td>TRIFR, LTIFR, DART, severidad, Pareto de incidentes, certificaciones por vencer</td></tr>
+            <tr><td class="mono">reconciliation</td><td>Factores F1/F2/F3, declarado vs topografía, balance de masa, libro vs conteo</td></tr>
+            <tr><td class="mono">kpi</td><td>Registro de indicadores, con metas y sentido de lectura por compañía</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tint">
+  <div class="wrap">
+    <h2>El dataset de la demo</h2>
+    <p class="sub">
+      Todo lo que se ve en las capturas es generado. No hay nombres de personas,
+      documentos, clientes, proveedores, precios ni volúmenes de ninguna empresa
+      real: las personas se identifican por rol y número, y las contrapartes son
+      razones sociales inventadas.
+    </p>
+
+    <div class="stats">
+      <div class="stat"><b>6 meses</b><span>de operación continua</span></div>
+      <div class="stat"><b>~40.000</b><span>registros generados</span></div>
+      <div class="stat"><b>4 etapas</b><span>molienda, micronizado, cal, envasado</span></div>
+      <div class="stat"><b>2 canteras</b><span>caliza y dolomita</span></div>
+    </div>
+
+    <p style="margin-top:32px; max-width:74ch; color:var(--ink-soft)">
+      El escenario es una cantera de carbonatos porque es el que más ejercita el
+      modelo: encadena cuatro etapas de proceso, mezcla granel con presentaciones,
+      consume explosivos con control de lote, y tiene una etapa —la calcinación—
+      que pierde masa por química y no por fuga. Los stocks están calibrados para
+      que no crezcan sin control ni se agoten: los despachos eligen producto en
+      proporción al excedente sobre un stock objetivo.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Estado</h2>
+    <p class="sub">Qué está terminado y qué falta, sin maquillaje.</p>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Implementado y verificado</h3>
+        <ul class="plain">
+          <li>Modelo de datos completo, multi-empresa y multi-faena.</li>
+          <li>Los doce motores, encadenados sobre los mismos datos.</li>
+          <li>Alta de compañía por perfil de industria, probada con una minera de cobre sin tocar código.</li>
+          <li>UI de tablero, stock, movimientos, conteo, cierre, producción, plan y configuración.</li>
+          <li>UI de voladuras y polvorín (compra, traslado, ajuste, saldo inicial), con vistas pensadas también para el celular.</li>
+          <li>Trazabilidad por lote de punta a punta, con alcance de retiro.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Pendiente de pantalla</h3>
+        <ul class="plain">
+          <li>Despachos, mantenimiento, HSE, laboratorio y reservas: el modelo y los servicios están, la UI todavía no.</li>
+          <li>Hasta entonces se cargan por CLI o por código.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>
+      <b>MineOps</b> — el código fuente es privado y no se publica. Esta página
+      documenta el sistema funcionando; si querés verlo en vivo o hablar del
+      proyecto, escribime por GitHub.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
